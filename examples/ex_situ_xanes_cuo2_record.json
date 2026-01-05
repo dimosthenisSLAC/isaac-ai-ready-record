@@ -70,19 +70,46 @@
         "independent_variables": [
           {
             "name": "incident_energy",
-            "unit": "eV"
+            "unit": "eV",
+            "values": [
+              8970,
+              8975,
+              8980,
+              8985,
+              8990,
+              8995,
+              9000
+            ]
           }
         ],
         "channels": [
           {
             "name": "absorption",
             "unit": "mu_normalized",
-            "role": "primary_signal"
+            "role": "primary_signal",
+            "values": [
+              0.02,
+              0.03,
+              0.15,
+              0.85,
+              1.45,
+              1.10,
+              1.05
+            ]
           },
           {
             "name": "i0_monitor",
             "unit": "counts",
-            "role": "auxiliary_signal"
+            "role": "auxiliary_signal",
+            "values": [
+              50000,
+              50100,
+              49900,
+              50050,
+              50000,
+              49950,
+              50000
+            ]
           }
         ]
       }

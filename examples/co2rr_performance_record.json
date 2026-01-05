@@ -89,19 +89,46 @@
                 "independent_variables": [
                     {
                         "name": "time",
-                        "unit": "s"
+                        "unit": "s",
+                        "values": [
+                            0,
+                            600,
+                            1200,
+                            1800,
+                            2400,
+                            3000,
+                            3600
+                        ]
                     }
                 ],
                 "channels": [
                     {
                         "name": "current_density",
                         "unit": "mA_cm2",
-                        "role": "measured_response"
+                        "role": "measured_response",
+                        "values": [
+                            -150.1,
+                            -150.3,
+                            -150.8,
+                            -150.5,
+                            -150.2,
+                            -150.5,
+                            -150.4
+                        ]
                     },
                     {
                         "name": "potential_readback",
                         "unit": "V_RHE",
-                        "role": "control_readback"
+                        "role": "control_readback",
+                        "values": [
+                            -1.0,
+                            -1.0,
+                            -1.0,
+                            -1.0,
+                            -1.0,
+                            -1.0,
+                            -1.0
+                        ]
                     }
                 ]
             },
@@ -110,19 +137,37 @@
                 "independent_variables": [
                     {
                         "name": "injection_time",
-                        "unit": "s"
+                        "unit": "s",
+                        "values": [
+                            900,
+                            1800,
+                            2700,
+                            3600
+                        ]
                     }
                 ],
                 "channels": [
                     {
                         "name": "co_concentration",
                         "unit": "ppm",
-                        "role": "measured_response"
+                        "role": "measured_response",
+                        "values": [
+                            450,
+                            455,
+                            448,
+                            452
+                        ]
                     },
                     {
                         "name": "ethylene_concentration",
                         "unit": "ppm",
-                        "role": "measured_response"
+                        "role": "measured_response",
+                        "values": [
+                            1200,
+                            1250,
+                            1240,
+                            1260
+                        ]
                     }
                 ]
             }

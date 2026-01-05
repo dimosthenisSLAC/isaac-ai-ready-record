@@ -87,19 +87,46 @@
                 "independent_variables": [
                     {
                         "name": "incident_energy",
-                        "unit": "eV"
+                        "unit": "eV",
+                        "values": [
+                            8970,
+                            8975,
+                            8980,
+                            8985,
+                            8990,
+                            8995,
+                            9000
+                        ]
                     }
                 ],
                 "channels": [
                     {
                         "name": "absorption",
                         "unit": "mu_normalized",
-                        "role": "primary_signal"
+                        "role": "primary_signal",
+                        "values": [
+                            0.05,
+                            0.08,
+                            0.45,
+                            1.25,
+                            0.95,
+                            0.98,
+                            1.02
+                        ]
                     },
                     {
                         "name": "fluorescence_yield_raw",
                         "unit": "counts",
-                        "role": "auxiliary_signal"
+                        "role": "auxiliary_signal",
+                        "values": [
+                            12000,
+                            13000,
+                            45000,
+                            150000,
+                            130000,
+                            135000,
+                            138000
+                        ]
                     }
                 ]
             }

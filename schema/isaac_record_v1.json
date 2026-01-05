@@ -213,6 +213,12 @@
                     },
                     "unit": {
                       "type": "string"
+                    },
+                    "values": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
                     }
                   }
                 }
@@ -244,6 +250,12 @@
                         "control_readback",
                         "quality_monitor"
                       ]
+                    },
+                    "values": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
                     }
                   }
                 }

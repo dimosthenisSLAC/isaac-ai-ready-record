@@ -70,14 +70,32 @@
                 "independent_variables": [
                     {
                         "name": "energy",
-                        "unit": "eV"
+                        "unit": "eV",
+                        "values": [
+                            8970,
+                            8975,
+                            8980,
+                            8985,
+                            8990,
+                            8995,
+                            9000
+                        ]
                     }
                 ],
                 "channels": [
                     {
                         "name": "absorption_cross_section",
                         "unit": "cm2_atom",
-                        "role": "simulated_observable"
+                        "role": "simulated_observable",
+                        "values": [
+                            0.00,
+                            0.02,
+                            0.38,
+                            1.35,
+                            1.05,
+                            0.99,
+                            1.01
+                        ]
                     }
                 ]
             }
