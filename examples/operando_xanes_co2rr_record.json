@@ -1,0 +1,350 @@
+{
+    "isaac_record_version": "1.0",
+    "record_id": "01JFH7K2W6P1D9A3R4ZQ2M8T5V",
+    "record_type": "evidence",
+    "record_domain": "characterization",
+    "timestamps": {
+        "acquired_start_utc": "2025-11-21T19:05:00Z",
+        "acquired_end_utc": "2025-11-21T19:45:00Z",
+        "created_utc": "2025-11-24T18:10:00Z"
+    },
+    "acquisition_source": {
+        "source_type": "facility",
+        "facility": {
+            "site": "SSRL",
+            "beamline": "15-2",
+            "endstation": "HiQ"
+        }
+    },
+    "sample": {
+        "material": {
+            "name": "Cu nanoparticles",
+            "formula": "Cu",
+            "synthesis": "Colloidal Cu nanoparticles deposited on GDE."
+        },
+        "sample_form": "electrode",
+        "geometry": {
+            "electrode_geometric_area_cm2": 1.0,
+            "catalyst_loading_mg_cm2": 1.0
+        }
+    },
+    "context": {
+        "environment": "operando",
+        "temperature_K": 298,
+        "electrochemistry": {
+            "reaction": "CO2RR",
+            "cell_type": "flow_cell",
+            "electrolyte": {
+                "composition": "1.0 M KHCO3",
+                "pH": 8.3
+            },
+            "potential_scale": "RHE",
+            "mass_transport": {
+                "mode": "gas_feed_to_flow_field",
+                "reactant": "CO2",
+                "flow_sccm": 20
+            }
+        }
+    },
+    "measurement": {
+        "family": "xray",
+        "technique": "xray_absorption",
+        "measurement_type": "xanes",
+        "variant": "herfd",
+        "detection_mode": "XES",
+        "edge": {
+            "element": "Cu",
+            "shell": "K"
+        },
+        "setpoint": {
+            "potential_V": -1.0,
+            "scale": "RHE",
+            "control_mode": "potentiostatic"
+        },
+        "config": {
+            "monochromator": {
+                "crystal": "Si(311)"
+            },
+            "beam": {
+                "spot_um_fwhm": [
+                    50.0,
+                    500.0
+                ]
+            },
+            "geometry": {
+                "incident_angle_deg": 45.0,
+                "emission_angle_deg": 45.0
+            },
+            "instrument_energy_resolution_eV": 0.8,
+            "energy_calibration": {
+                "reference": "Cu_foil",
+                "feature": "inflection_point",
+                "reference_energy_eV": 8998.5
+            }
+        },
+        "series": {
+            "n_scans_acquired": 12,
+            "n_scans_used": 10,
+            "scan_time_s": 90,
+            "total_acquisition_s": 1080,
+            "positioning": {
+                "mode": "multi_spot",
+                "n_spots": 4,
+                "notes": "Moved to fresh spot every 3 scans to mitigate beam-induced changes."
+            },
+            "beam": {
+                "attenuation": {
+                    "used": true,
+                    "method": "filter",
+                    "details": "Al attenuator in beam; setting logged in beamline controls."
+                }
+            },
+            "time_alignment": {
+                "reference_clock": "electrochem_chronoamperometry",
+                "time_window_s": [
+                    600,
+                    1680
+                ],
+                "notes": "Spectral averaging aligned to steady-state segment of CA hold."
+            }
+        },
+        "qc": {
+            "sample_evolution_observed": true,
+            "evolution_type": "time_evolution",
+            "evidence": "Progressive decrease in white-line intensity across scans 9–12; correlated with increasing current magnitude.",
+            "mitigation": [
+                "excluded_scans",
+                "moved_spot",
+                "used_filter"
+            ],
+            "excluded_scans": [
+                {
+                    "scan_index": 11,
+                    "reason": "outlier vs prior scans; suspected transient/evolution"
+                },
+                {
+                    "scan_index": 12,
+                    "reason": "continued evolution beyond steady-state window"
+                }
+            ]
+        },
+        "payload": {
+            "x": {
+                "name": "incident_energy",
+                "unit": "eV",
+                "values": [
+                    8975.0,
+                    8976.0,
+                    8977.0,
+                    8978.0,
+                    8979.0,
+                    8980.0,
+                    8981.0,
+                    8982.0,
+                    8983.0,
+                    8984.0,
+                    8985.0,
+                    8986.0,
+                    8987.0,
+                    8988.0,
+                    8989.0,
+                    8990.0,
+                    8991.0,
+                    8992.0,
+                    8993.0,
+                    8994.0,
+                    8995.0,
+                    8996.0,
+                    8997.0,
+                    8998.0,
+                    8999.0,
+                    9000.0,
+                    9005.0,
+                    9010.0,
+                    9020.0,
+                    9030.0
+                ]
+            },
+            "y": {
+                "name": "signal",
+                "unit": "arb",
+                "values": [
+                    0.02,
+                    0.02,
+                    0.03,
+                    0.04,
+                    0.06,
+                    0.09,
+                    0.18,
+                    0.35,
+                    0.65,
+                    0.95,
+                    1.15,
+                    1.25,
+                    1.30,
+                    1.28,
+                    1.22,
+                    1.15,
+                    1.10,
+                    1.08,
+                    1.06,
+                    1.05,
+                    1.07,
+                    1.10,
+                    1.12,
+                    1.12,
+                    1.10,
+                    1.05,
+                    1.04,
+                    1.03,
+                    1.01,
+                    1.00
+                ]
+            },
+            "processing": {
+                "type": "time_averaged_over_hold",
+                "notes": "Averaged 10 steady-state scans. Normalized to edge jump = 1.0. Embedded x,y values are downsampled for illustration."
+            }
+        }
+    },
+    "assets": [
+        {
+            "asset_id": "raw_scans_archive",
+            "content_role": "raw_data_pointer",
+            "uri": "ssrl-archive://BL15-2/2025_run_HiQ/raw_scans.h5",
+            "media_type": "application/x-hdf5",
+            "sha256": "TBD",
+            "notes": "Full raw scan set including monitor channels."
+        },
+        {
+            "asset_id": "merged_spectrum_fullres",
+            "content_role": "reduction_product",
+            "uri": "ssrl-archive://BL15-2/2025_run_HiQ/reduced/Cu_NP_operando_merged.xdi",
+            "media_type": "text/plain",
+            "sha256": "TBD",
+            "notes": "Full resolution merged spectrum in XDI format."
+        },
+        {
+            "asset_id": "processing_notebook",
+            "content_role": "processing_recipe",
+            "uri": "workflow://operando_xas_processing/v1.0",
+            "media_type": "application/x-ipynb+json",
+            "sha256": "TBD",
+            "notes": "Jupyter notebook used for time-alignment, averaging, and normalization."
+        }
+    ],
+    "links": [
+        {
+            "rel": "associated_performance_record",
+            "target": "01JFH7M0Q2B8K1J6N9S4Y3D7A1",
+            "basis": "equivalent_device",
+            "notes": "Detailed electrochemical characterization on nominally identical electrode."
+        },
+        {
+            "rel": "reference_state",
+            "target": "01JFH7K0N8R9S2C3V6T1M0Q4P7",
+            "notes": "Baseline operando spectrum at different potential used for differential descriptors."
+        },
+        {
+            "rel": "reference_standard",
+            "target": "01JFH3Q8Z1Q9F0XG3V7N4K2M8C",
+            "notes": "Ex-situ CuO2 standard reference used for classification and calibration checks."
+        }
+    ],
+    "descriptors": {
+        "policy": {
+            "requires_at_least_one": true
+        },
+        "outputs": [
+            {
+                "label": "automated_analysis_v1",
+                "generated_utc": "2025-11-24T18:12:00Z",
+                "generated_by": {
+                    "agent": "isaac_xas_descriptor_agent",
+                    "version": "1.0"
+                },
+                "descriptors": [
+                    {
+                        "name": "xanes_edge_position",
+                        "kind": "absolute",
+                        "source": "auto",
+                        "value": 8980.4,
+                        "unit": "eV",
+                        "definition": "Edge position from first-derivative maximum after Cu-foil calibration.",
+                        "precision": {
+                            "sigma": 0.10,
+                            "unit": "eV"
+                        }
+                    },
+                    {
+                        "name": "white_line_intensity",
+                        "kind": "absolute",
+                        "source": "auto",
+                        "value": 1.12,
+                        "unit": "arb",
+                        "definition": "Peak intensity in 8982–8995 eV window after normalization.",
+                        "precision": {
+                            "sigma": 0.03,
+                            "unit": "arb"
+                        }
+                    },
+                    {
+                        "name": "delta_white_line_intensity_vs_reference_state",
+                        "kind": "differential",
+                        "source": "auto",
+                        "relative_to": {
+                            "record_id": "01JFH7K0N8R9S2C3V6T1M0Q4P7",
+                            "operation": "subtract",
+                            "roi": {
+                                "energy_eV": [
+                                    8982.0,
+                                    8995.0
+                                ]
+                            }
+                        },
+                        "value": -0.08,
+                        "unit": "arb",
+                        "definition": "Change in white-line peak intensity relative to baseline operando record.",
+                        "precision": {
+                            "sigma": 0.02,
+                            "unit": "arb"
+                        }
+                    },
+                    {
+                        "name": "delta_edge_position_vs_reference_state",
+                        "kind": "differential",
+                        "source": "auto",
+                        "relative_to": {
+                            "record_id": "01JFH7K0N8R9S2C3V6T1M0Q4P7",
+                            "operation": "subtract",
+                            "roi": {
+                                "energy_eV": [
+                                    8975.0,
+                                    8988.0
+                                ]
+                            }
+                        },
+                        "value": -0.15,
+                        "unit": "eV",
+                        "definition": "Edge position shift relative to baseline operando record.",
+                        "precision": {
+                            "sigma": 0.12,
+                            "unit": "eV"
+                        }
+                    },
+                    {
+                        "name": "oxidation_state_proxy",
+                        "kind": "absolute",
+                        "source": "manual",
+                        "value": "Cu(0)-like",
+                        "unit": "qualitative",
+                        "definition": "Classification vs internal reference library (Cu foil, Cu2O, CuO, CuO2) using spectral similarity.",
+                        "precision": {
+                            "confidence": 0.86
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

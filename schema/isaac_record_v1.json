@@ -2,25 +2,129 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "ISAAC AI-Ready Scientific Record",
   "type": "object",
+  "additionalProperties": true,
   "required": [
     "isaac_record_version",
     "record_id",
     "record_type",
+    "record_domain",
     "timestamps",
-    "sample",
-    "measurement",
-    "descriptors"
+    "acquisition_source"
   ],
   "properties": {
-    "isaac_record_version": { "type": "string" },
-    "record_id": { "type": "string" },
-    "record_type": { "type": "string" },
-    "timestamps": { "type": "object" },
-    "acquisition_source": { "type": "object" },
-    "sample": { "type": "object" },
-    "context": { "type": "object" },
-    "measurement": { "type": "object" },
-    "descriptors": { "type": "object" },
-    "links": { "type": "array" }
-  }
+    "isaac_record_version": {
+      "type": "string"
+    },
+    "record_id": {
+      "type": "string"
+    },
+    "record_type": {
+      "type": "string"
+    },
+    "record_domain": {
+      "type": "string",
+      "enum": [
+        "characterization",
+        "performance",
+        "theory",
+        "simulation",
+        "derived"
+      ],
+      "description": "The fundamental category of scientific knowledge represented by the record."
+    },
+    "timestamps": {
+      "type": "object",
+      "minProperties": 1
+    },
+    "acquisition_source": {
+      "type": "object",
+      "required": [
+        "source_type"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "source_type": {
+          "type": "string",
+          "enum": [
+            "facility",
+            "laboratory",
+            "computation",
+            "literature",
+            "database",
+            "industrial"
+          ],
+          "description": "Origin of the information. 'computation' refers to internally generated computational results. Literature is treated as a source, not a distinct record category."
+        }
+      }
+    },
+    "sample": {
+      "type": "object"
+    },
+    "device": {
+      "type": "object"
+    },
+    "system": {
+      "type": "object"
+    },
+    "context": {
+      "type": "object"
+    },
+    "measurement": {
+      "type": "object"
+    },
+    "computation": {
+      "type": "object"
+    },
+    "literature": {
+      "type": "object"
+    },
+    "descriptors": {
+      "type": "object"
+    },
+    "links": {
+      "type": "array"
+    }
+  },
+  "allOf": [
+    {
+      "description": "Entity constraint: at least one of sample, device, system must be present.",
+      "anyOf": [
+        {
+          "required": [
+            "sample"
+          ]
+        },
+        {
+          "required": [
+            "device"
+          ]
+        },
+        {
+          "required": [
+            "system"
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Content constraint: at least one of measurement, computation, literature must be present.",
+      "anyOf": [
+        {
+          "required": [
+            "measurement"
+          ]
+        },
+        {
+          "required": [
+            "computation"
+          ]
+        },
+        {
+          "required": [
+            "literature"
+          ]
+        }
+      ]
+    }
+  ]
 }

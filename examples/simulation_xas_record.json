@@ -1,0 +1,209 @@
+{
+    "isaac_record_version": "1.0",
+    "record_id": "01JFH8SIMXASCUKEDGE000000001",
+    "record_type": "evidence",
+    "record_domain": "simulation",
+    "timestamps": {
+        "acquired_start_utc": "2025-12-18T02:10:00Z",
+        "acquired_end_utc": "2025-12-18T06:55:00Z",
+        "created_utc": "2025-12-18T07:10:00Z"
+    },
+    "acquisition_source": {
+        "source_type": "computation",
+        "computation": {
+            "site": "NERSC",
+            "allocation": "mXXXX",
+            "machine": "perlmutter",
+            "notes": "Batch job executed under ISAAC theory workflow."
+        }
+    },
+    "sample": {
+        "material": {
+            "name": "Cu(111) slab + *CO adsorbate",
+            "formula": "Cu",
+            "notes": "4-layer Cu(111) slab, CO at atop site; geometry optimized prior to XAS simulation."
+        },
+        "sample_form": "slab_model",
+        "geometry": {
+            "supercell": "4x4",
+            "vacuum_A": 15.0
+        }
+    },
+    "context": {
+        "environment": "in_silico",
+        "temperature_K": 0,
+        "notes": "Static 0 K electronic structure; no solvation model in this run."
+    },
+    "computation": {
+        "method": {
+            "family": "DFT",
+            "functional_class": "GGA",
+            "functional_name": "PBE",
+            "core_hole_treatment": "final_state_rule"
+        },
+        "code": {
+            "name": "Quantum ESPRESSO",
+            "version": "7.2",
+            "xas_module": "XSpectra",
+            "notes": "SCF + XSpectra with final-state core hole on Cu absorber."
+        },
+        "payload": {
+            "x": {
+                "name": "incident_energy",
+                "unit": "eV",
+                "values": [
+                    8960.0,
+                    8965.0,
+                    8970.0,
+                    8975.0,
+                    8980.0,
+                    8985.0,
+                    8990.0,
+                    8995.0,
+                    9000.0,
+                    9005.0,
+                    9010.0,
+                    9020.0,
+                    9030.0,
+                    9040.0,
+                    9050.0
+                ]
+            },
+            "y": {
+                "name": "mu",
+                "unit": "arb",
+                "values": [
+                    0.02,
+                    0.03,
+                    0.05,
+                    0.10,
+                    0.22,
+                    0.48,
+                    0.85,
+                    1.12,
+                    1.20,
+                    1.15,
+                    1.08,
+                    0.98,
+                    0.92,
+                    0.89,
+                    0.86
+                ]
+            },
+            "processing": {
+                "type": "simulated_spectrum_broadened",
+                "notes": "Embedded x,y downsampled for illustration; full-resolution spectrum stored as asset.",
+                "broadening_model": {
+                    "type": "voigt",
+                    "instrument_sigma_eV": 0.6,
+                    "lifetime_gamma_eV": 1.0
+                }
+            }
+        }
+    },
+    "assets": [
+        {
+            "asset_id": "structure_relaxed",
+            "content_role": "input_structure",
+            "uri": "nersc://isaac/simxas/cu111_co/relaxed_structure.xyz",
+            "media_type": "chemical/x-xyz",
+            "sha256": "TBD",
+            "notes": "Relaxed geometry used for XAS simulation."
+        },
+        {
+            "asset_id": "qe_inputs",
+            "content_role": "workflow_recipe",
+            "uri": "repo://isaac-workflows/qe_xspectra/cu111_co/v1.0",
+            "media_type": "text/plain",
+            "sha256": "TBD",
+            "notes": "QE/XSpectra input decks and run script pinned to tag v1.0."
+        },
+        {
+            "asset_id": "xas_fullres",
+            "content_role": "reduction_product",
+            "uri": "nersc://isaac/simxas/cu111_co/results/cu_kedge_simulated_fullres.xdi",
+            "media_type": "text/plain",
+            "sha256": "TBD",
+            "notes": "Full-resolution simulated spectrum (energy grid + mu) in XDI-like text."
+        },
+        {
+            "asset_id": "raw_qe_outputs",
+            "content_role": "raw_data_pointer",
+            "uri": "nersc://isaac/simxas/cu111_co/raw/job_outputs.tar.gz",
+            "media_type": "application/gzip",
+            "sha256": "TBD",
+            "notes": "Full code outputs: SCF, XSpectra, logs, checkpoints (for reproducibility)."
+        }
+    ],
+    "links": [
+        {
+            "rel": "intended_comparison_target",
+            "target": "01JFH7K2W6P1D9A3R4ZQ2M8T5V",
+            "basis": "same_absorber_edge",
+            "notes": "Compare simulated Cu K-edge spectrum against operando HERFD-XANES measurement record."
+        }
+    ],
+    "descriptors": {
+        "policy": {
+            "requires_at_least_one": true
+        },
+        "outputs": [
+            {
+                "label": "auto_features_v1",
+                "generated_utc": "2025-12-18T07:12:00Z",
+                "generated_by_output": {
+                    "agent": "isaac_simxas_descriptor_agent",
+                    "version": "0.1"
+                },
+                "descriptors": [
+                    {
+                        "name": "xanes.edge_position",
+                        "kind": "absolute",
+                        "source": "auto",
+                        "generated_by": {
+                            "agent": "isaac_simxas_descriptor_agent",
+                            "version": "0.1"
+                        },
+                        "value": 8986.3,
+                        "unit": "eV",
+                        "definition": "First-derivative maximum of simulated spectrum after applied broadening model.",
+                        "uncertainty": {
+                            "sigma": 0.4,
+                            "unit": "eV"
+                        }
+                    },
+                    {
+                        "name": "xanes.white_line_intensity",
+                        "kind": "absolute",
+                        "source": "auto",
+                        "generated_by": {
+                            "agent": "isaac_simxas_descriptor_agent",
+                            "version": "0.1"
+                        },
+                        "value": 1.20,
+                        "unit": "arb",
+                        "definition": "Peak intensity in 8982–8998 eV window after normalization of simulated mu(E).",
+                        "uncertainty": {
+                            "sigma": 0.05,
+                            "unit": "arb"
+                        }
+                    },
+                    {
+                        "name": "computation.method.variant",
+                        "kind": "categorical",
+                        "source": "imported",
+                        "generated_by": {
+                            "agent": "isaac_simxas_descriptor_agent",
+                            "version": "0.1"
+                        },
+                        "value": "DFT+final_state_corehole",
+                        "definition": "Method family label used for downstream grouping and benchmarking.",
+                        "uncertainty": {
+                            "confidence": 0.99
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}
