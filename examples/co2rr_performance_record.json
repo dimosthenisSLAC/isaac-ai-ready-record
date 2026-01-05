@@ -1,6 +1,6 @@
 {
     "isaac_record_version": "1.0",
-    "record_id": "01JFH5Z0A3S9H2ZI5X9P6M4O0E",
+    "record_id": "01JFH8SIMXAS00000000000001",
     "record_type": "evidence",
     "record_domain": "performance",
     "timestamps": {
@@ -40,8 +40,9 @@
         "notes": "Gas diffusion electrode with spray-coated Cu nanoparticles on PTFE-treated carbon paper."
     },
     "context": {
+        "environment": "in_situ",
         "electrolyte": {
-            "name": "KHCO3",
+            "name": "HClO4",
             "concentration_M": 1.0
         },
         "temperature_K": 298.15,

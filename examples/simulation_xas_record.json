@@ -1,6 +1,6 @@
 {
     "isaac_record_version": "1.0",
-    "record_id": "01JFH8SIMXASCUKEDGE000000001",
+    "record_id": "01JFH8SIMXAS00000000000001",
     "record_type": "evidence",
     "record_domain": "simulation",
     "timestamps": {
@@ -97,7 +97,7 @@
         },
         {
             "asset_id": "qe_inputs",
-            "content_role": "workflow_recipe",
+            "content_role": "processing_recipe",
             "uri": "repo://isaac-workflows/qe_xspectra/cu111_co/v1.0",
             "media_type": "text/plain",
             "sha256": "66f563605c31278152283734135544710156784381389",

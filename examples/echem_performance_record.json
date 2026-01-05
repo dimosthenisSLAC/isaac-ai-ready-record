@@ -41,6 +41,7 @@
         "notes": "Commercial 40% Pt/C on carbon paper."
     },
     "context": {
+        "environment": "in_situ",
         "electrolyte": {
             "name": "HClO4",
             "concentration_M": 0.1
