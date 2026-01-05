@@ -20,9 +20,10 @@
         "material": {
             "name": "Cu nanoparticles",
             "formula": "Cu",
-            "synthesis": "Colloidal Cu nanoparticles deposited on GDE."
+            "provenance": "synthesized",
+            "notes": "Colloidal Cu nanoparticles deposited on GDE. Catalyst layer."
         },
-        "sample_form": "electrode",
+        "sample_form": "film",
         "geometry": {
             "electrode_geometric_area_cm2": 1.0,
             "catalyst_loading_mg_cm2": 1.0
@@ -271,7 +272,7 @@
                         "value": 8980.4,
                         "unit": "eV",
                         "definition": "Edge position from first-derivative maximum after Cu-foil calibration.",
-                        "precision": {
+                        "uncertainty": {
                             "sigma": 0.10,
                             "unit": "eV"
                         }
@@ -283,7 +284,7 @@
                         "value": 1.12,
                         "unit": "arb",
                         "definition": "Peak intensity in 8982–8995 eV window after normalization.",
-                        "precision": {
+                        "uncertainty": {
                             "sigma": 0.03,
                             "unit": "arb"
                         }
@@ -305,7 +306,7 @@
                         "value": -0.08,
                         "unit": "arb",
                         "definition": "Change in white-line peak intensity relative to baseline operando record.",
-                        "precision": {
+                        "uncertainty": {
                             "sigma": 0.02,
                             "unit": "arb"
                         }
@@ -327,7 +328,7 @@
                         "value": -0.15,
                         "unit": "eV",
                         "definition": "Edge position shift relative to baseline operando record.",
-                        "precision": {
+                        "uncertainty": {
                             "sigma": 0.12,
                             "unit": "eV"
                         }
@@ -337,9 +338,12 @@
                         "kind": "absolute",
                         "source": "manual",
                         "value": "Cu(0)-like",
-                        "unit": "qualitative",
                         "definition": "Classification vs internal reference library (Cu foil, Cu2O, CuO, CuO2) using spectral similarity.",
-                        "precision": {
+                        "generated_by": {
+                            "agent": "manual_review",
+                            "version": "1.0"
+                        },
+                        "uncertainty": {
                             "confidence": 0.86
                         }
                     }

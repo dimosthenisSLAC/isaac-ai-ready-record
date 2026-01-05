@@ -15,6 +15,18 @@
             "instrument_id": "BioLogic-VMP3-Chan1"
         }
     },
+    "sample": {
+        "material": {
+            "name": "Pt/C",
+            "formula": "Pt/C",
+            "provenance": "commercial",
+            "notes": "40% Pt on Carbon. Catalyst layer supported on RDE disk."
+        },
+        "sample_form": "film",
+        "composition": {
+            "loading_mg_pt_cm2": 0.4
+        }
+    },
     "device": {
         "device_id": "Dev-2025-PtC-005",
         "electrode_type": "RDE",
@@ -134,26 +146,30 @@
             {
                 "label": "kinetic_analysis_v1",
                 "generated_utc": "2025-12-15T12:00:00Z",
+                "generated_by": {
+                    "agent": "orbit_analysis_suite",
+                    "version": "1.2"
+                },
                 "descriptors": [
                     {
                         "name": "tafel_slope",
                         "value": 62.0,
                         "unit": "mV/dec",
-                        "precision": {
+                        "uncertainty": {
                             "sigma": 2.5,
                             "unit": "mV/dec"
                         },
-                        "method": "Linear fit to low-current density region (0.1-10 mA/cm2)."
+                        "definition": "Linear fit to low-current density region (0.1-10 mA/cm2)."
                     },
                     {
                         "name": "mass_activity_0_9V",
                         "value": 0.12,
                         "unit": "A/mg_Pt",
-                        "precision": {
+                        "uncertainty": {
                             "sigma": 0.01,
                             "unit": "A/mg_Pt"
                         },
-                        "method": "Calculated at 0.9V vs RHE."
+                        "definition": "Calculated at 0.9V vs RHE."
                     }
                 ]
             }

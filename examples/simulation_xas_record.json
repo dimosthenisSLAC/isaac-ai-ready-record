@@ -151,7 +151,7 @@
             {
                 "label": "auto_features_v1",
                 "generated_utc": "2025-12-18T07:12:00Z",
-                "generated_by_output": {
+                "generated_by": {
                     "agent": "isaac_simxas_descriptor_agent",
                     "version": "0.1"
                 },
@@ -160,10 +160,6 @@
                         "name": "xanes.edge_position",
                         "kind": "absolute",
                         "source": "auto",
-                        "generated_by": {
-                            "agent": "isaac_simxas_descriptor_agent",
-                            "version": "0.1"
-                        },
                         "value": 8986.3,
                         "unit": "eV",
                         "definition": "First-derivative maximum of simulated spectrum after applied broadening model.",
@@ -176,10 +172,6 @@
                         "name": "xanes.white_line_intensity",
                         "kind": "absolute",
                         "source": "auto",
-                        "generated_by": {
-                            "agent": "isaac_simxas_descriptor_agent",
-                            "version": "0.1"
-                        },
                         "value": 1.20,
                         "unit": "arb",
                         "definition": "Peak intensity in 8982–8998 eV window after normalization of simulated mu(E).",
@@ -192,10 +184,6 @@
                         "name": "computation.method.variant",
                         "kind": "categorical",
                         "source": "imported",
-                        "generated_by": {
-                            "agent": "isaac_simxas_descriptor_agent",
-                            "version": "0.1"
-                        },
                         "value": "DFT+final_state_corehole",
                         "definition": "Method family label used for downstream grouping and benchmarking.",
                         "uncertainty": {

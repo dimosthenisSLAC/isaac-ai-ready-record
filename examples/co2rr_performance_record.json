@@ -15,6 +15,16 @@
             "instrument_id": "Station-2-Biologic-GC"
         }
     },
+    "sample": {
+        "material": {
+            "name": "Cu nanoparticles",
+            "formula": "Cu",
+            "provenance": "synthesized",
+            "notes": "7nm nanoparticles. Catalyst layer spray-coated on GDE."
+        },
+        "sample_form": "film",
+        "notes": "Spray-coated on GDE"
+    },
     "device": {
         "device_id": "GDE-CuNP-2025-042",
         "electrode_type": "GDE",
@@ -120,12 +130,16 @@
             {
                 "label": "steady_state_metrics",
                 "generated_utc": "2025-12-16T18:00:00Z",
+                "generated_by": {
+                    "agent": "flow_cell_analyzer",
+                    "version": "1.0"
+                },
                 "descriptors": [
                     {
                         "name": "steady_state_current_density_at_setpoint",
                         "value": -150.5,
                         "unit": "mA/cm2",
-                        "precision": {
+                        "uncertainty": {
                             "sigma": 2.1,
                             "unit": "mA/cm2"
                         },
@@ -135,7 +149,7 @@
                         "name": "faradaic_efficiency_CO",
                         "value": 0.152,
                         "unit": "fraction",
-                        "precision": {
+                        "uncertainty": {
                             "sigma": 0.005,
                             "unit": "fraction"
                         },
@@ -145,7 +159,7 @@
                         "name": "faradaic_efficiency_C2H4",
                         "value": 0.428,
                         "unit": "fraction",
-                        "precision": {
+                        "uncertainty": {
                             "sigma": 0.012,
                             "unit": "fraction"
                         },
@@ -155,7 +169,7 @@
                         "name": "faradaic_efficiency_EtOH",
                         "value": 0.181,
                         "unit": "fraction",
-                        "precision": {
+                        "uncertainty": {
                             "sigma": 0.010,
                             "unit": "fraction"
                         },

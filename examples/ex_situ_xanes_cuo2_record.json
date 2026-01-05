@@ -18,8 +18,10 @@
   },
   "sample": {
     "material": {
+      "name": "Copper(II) Oxide",
       "formula": "CuO2",
-      "vendor": "Sigma-Aldrich"
+      "provenance": "commercial",
+      "notes": "Vendor: Sigma-Aldrich. Pressed pellet."
     },
     "sample_form": "pellet",
     "composition": {
@@ -206,6 +208,10 @@
       {
         "label": "manual_review_2025-12-14",
         "generated_utc": "2025-12-14T20:20:00Z",
+        "generated_by": {
+          "agent": "manual_review",
+          "version": "1.0"
+        },
         "descriptors": [
           {
             "name": "xanes_inflection_point_energy",
@@ -214,7 +220,7 @@
             "value": 9001.2,
             "unit": "eV",
             "definition": "Inflection point of the averaged HERFD-XANES spectrum determined from first-derivative maximum after Cu-foil calibration.",
-            "precision": {
+            "uncertainty": {
               "sigma": 0.01,
               "unit": "eV"
             }
