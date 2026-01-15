@@ -11,6 +11,22 @@
     "timestamps",
     "acquisition_source"
   ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "record_type": {
+            "const": "evidence"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "descriptors"
+        ]
+      }
+    }
+  ],
   "properties": {
     "isaac_record_version": {
       "type": "string",
@@ -157,6 +173,25 @@
             ]
           },
           "description": "Flat object of categorical settings. No nested objects allowed."
+        },
+        "simulation": {
+          "type": "object",
+          "required": [
+            "method"
+          ],
+          "properties": {
+            "method": {
+              "type": "string",
+              "enum": [
+                "DFT",
+                "ab_initio_MD",
+                "classical_MD",
+                "kinetic_monte_carlo",
+                "microkinetic_modeling",
+                "machine_learning_potential"
+              ]
+            }
+          }
         }
       }
     },

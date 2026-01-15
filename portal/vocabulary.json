@@ -1,0 +1,254 @@
+{
+    "Record Info": {
+        "record_type": {
+            "description": "Fundamental nature of the record.",
+            "values": [
+                "evidence",
+                "intent",
+                "synthesis"
+            ]
+        },
+        "record_domain": {
+            "description": "Scientific domain of the record content.",
+            "values": [
+                "characterization",
+                "performance",
+                "simulation",
+                "theory",
+                "derived"
+            ]
+        },
+        "acquisition_source.source_type": {
+            "description": "Origin of the data.",
+            "values": [
+                "facility",
+                "laboratory",
+                "computation",
+                "literature",
+                "database"
+            ]
+        }
+    },
+    "Sample": {
+        "sample.sample_form": {
+            "description": "Physical realization of the sample.",
+            "values": [
+                "powder",
+                "pellet",
+                "film",
+                "monolith",
+                "liquid",
+                "gas",
+                "single_crystal",
+                "slab_model",
+                "cluster_model",
+                "unit_cell",
+                "fluids"
+            ]
+        },
+        "sample.material.provenance": {
+            "description": "Origin of the material intent.",
+            "values": [
+                "commercial",
+                "synthesized",
+                "theoretical",
+                "literature",
+                "natural"
+            ]
+        },
+        "sample.material.identifiers.scheme": {
+            "description": "Scheme for external identifiers.",
+            "values": [
+                "doi",
+                "inchi",
+                "cas",
+                "materials_project",
+                "internal"
+            ]
+        }
+    },
+    "Context": {
+        "context.environment": {
+            "description": "The surrounding condition.",
+            "values": [
+                "operando",
+                "in_situ",
+                "ex_situ",
+                "in_silico"
+            ]
+        },
+        "context.electrochemistry.control_mode": {
+            "description": "Method of electrochemical control.",
+            "values": [
+                "potentiostatic",
+                "galvanostatic",
+                "open_circuit",
+                "mixed"
+            ]
+        },
+        "context.electrochemistry.potential_scale": {
+            "description": "Thermodynamic reference scale for voltage.",
+            "values": [
+                "RHE",
+                "SHE",
+                "Ag/AgCl",
+                "SCE",
+                "Hg/HgO",
+                "V_vs_Ref"
+            ]
+        },
+        "context.electrochemistry.pH_basis": {
+            "description": "Basis for the pH value.",
+            "values": [
+                "measured",
+                "nominal",
+                "buffered_assumed"
+            ]
+        },
+        "context.electrochemistry.reaction": {
+            "description": "Target chemical reaction.",
+            "values": [
+                "CO2RR",
+                "OER",
+                "HER",
+                "ORR",
+                "None",
+                "Pt Oxidation"
+            ]
+        },
+        "context.electrochemistry.cell_type": {
+            "description": "[Extension] The specific hardware rig body.",
+            "values": [
+                "flow_cell",
+                "h_cell",
+                "beaker_cell",
+                "gde_cell",
+                "coin_cell",
+                "three_electrode"
+            ]
+        },
+        "context.transport.flow_mode": {
+            "description": "Hydrodynamic conditions.",
+            "values": [
+                "stagnant",
+                "flowing_liquid",
+                "bubbling_gas",
+                "gas_diffusion",
+                "rotating_disk"
+            ]
+        },
+        "context.transport.feed.phase": {
+            "description": "Phase of the transport feed.",
+            "values": [
+                "gas",
+                "liquid"
+            ]
+        },
+        "context.simulation_assumptions.solvation_model": {
+            "description": "[In Silico] Solvation handling.",
+            "values": [
+                "none",
+                "implicit",
+                "explicit"
+            ]
+        }
+    },
+    "System": {
+        "system.domain": {
+            "description": "Physical vs Computational system.",
+            "values": [
+                "experimental",
+                "computational"
+            ]
+        },
+        "system.instrument.instrument_type": {
+            "description": "Primary platform type.",
+            "values": [
+                "beamline_endstation",
+                "diffractometer",
+                "spectrometer",
+                "microscope",
+                "supercomputer_partition",
+                "simulation_engine",
+                "potentiostat"
+            ]
+        },
+        "system.simulation.method": {
+            "description": "[In Silico] Computational methodology.",
+            "values": [
+                "DFT",
+                "ab_initio_MD",
+                "classical_MD",
+                "kinetic_monte_carlo",
+                "microkinetic_modeling",
+                "machine_learning_potential"
+            ]
+        }
+    },
+    "Measurement": {
+        "measurement.series.channels.role": {
+            "description": "Semantic role of a data channel.",
+            "values": [
+                "primary_signal",
+                "measured_response",
+                "simulated_observable",
+                "derived_signal",
+                "auxiliary_signal",
+                "control_readback",
+                "quality_monitor"
+            ]
+        }
+    },
+    "Assets": {
+        "assets.content_role": {
+            "description": "Role of the external file.",
+            "values": [
+                "raw_data_pointer",
+                "reduction_product",
+                "processing_recipe",
+                "input_structure",
+                "metadata_snapshot",
+                "supplementary_image",
+                "other"
+            ]
+        }
+    },
+    "Links": {
+        "links.rel": {
+            "description": "Semantic relationship type.",
+            "values": [
+                "derived_from",
+                "intended_comparison_target",
+                "calibration_of",
+                "same_sample_as",
+                "replica_of",
+                "follows",
+                "validates",
+                "invalidates"
+            ]
+        }
+    },
+    "Descriptors": {
+        "descriptors.outputs.descriptors.kind": {
+            "description": "Mathematical nature of the descriptor.",
+            "values": [
+                "absolute",
+                "differential",
+                "categorical",
+                "similarity",
+                "model"
+            ]
+        },
+        "descriptors.theoretical_metric": {
+            "description": "[In Silico] Key theoretical outcomes.",
+            "values": [
+                "adsorption_energy",
+                "pourbaix_stability",
+                "activation_barrier",
+                "projected_density_of_states",
+                "band_gap",
+                "surface_energy"
+            ]
+        }
+    }
+}

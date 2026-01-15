@@ -45,6 +45,9 @@
         "configuration": {
             "code_version": "6.3.2",
             "compute_architecture": "GPU"
+        },
+        "simulation": {
+            "method": "DFT"
         }
     },
     "computation": {
@@ -184,13 +187,15 @@
                         }
                     },
                     {
-                        "name": "computation.method.variant",
-                        "kind": "categorical",
-                        "source": "imported",
-                        "value": "DFT+final_state_corehole",
-                        "definition": "Method family label.",
+                        "name": "descriptors.theoretical_metric",
+                        "kind": "absolute",
+                        "source": "auto",
+                        "value": -1.45,
+                        "unit": "eV",
+                        "definition": "CO adsorption energy on Atop site.",
                         "uncertainty": {
-                            "confidence": 0.99
+                            "sigma": 0.05,
+                            "unit": "eV"
                         }
                     }
                 ]
