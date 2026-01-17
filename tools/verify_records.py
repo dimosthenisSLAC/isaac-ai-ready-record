@@ -9,7 +9,7 @@ except ImportError:
     print("Error: jsonschema module not found. Please install via 'pip install jsonschema'")
     sys.exit(1)
 
-def load_vocabulary(vocab_path="portal/vocabulary.json"):
+def load_vocabulary(vocab_path="data/vocabulary.json"):
     if not os.path.exists(vocab_path):
         print(f"⚠️  Vocabulary not found at {vocab_path} - Skipping semantic validation.")
         return None

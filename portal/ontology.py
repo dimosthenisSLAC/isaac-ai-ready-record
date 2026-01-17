@@ -6,8 +6,8 @@ Supports both file-based (local dev) and PostgreSQL (production) storage
 import json
 import os
 
-# Updated to use relative path for portability
-VOCAB_FILE = os.path.join(os.path.dirname(__file__), "vocabulary.json")
+# Path to vocabulary file in data/ directory
+VOCAB_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "vocabulary.json")
 
 # Database imports (optional, for PostgreSQL support)
 try:

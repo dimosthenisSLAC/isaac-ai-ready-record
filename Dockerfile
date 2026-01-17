@@ -16,9 +16,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application files
 COPY portal/ portal/
+COPY data/ data/
 COPY schema/ schema/
 COPY examples/ examples/
-COPY verify_records.py .
+COPY tools/ tools/
 
 # Set ownership
 RUN chown -R appuser:appuser /app
