@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import json
+import requests
 import ontology
 import database
 import os
@@ -280,6 +281,9 @@ elif page == "Record Validator":
     st.header("Excel Validator")
     st.info("Upload an ISAAC Metadata Excel file to check for compliance and optionally save to the database.")
 
+    # API URL configuration
+    api_url = os.environ.get("ISAAC_API_URL", "http://localhost:8502")
+
     uploaded_file = st.file_uploader("Upload Excel", type=["xlsx"])
 
     if uploaded_file:
@@ -335,73 +339,194 @@ elif page == "Record Validator":
                 st.balloons()
                 st.success("This file is fully compliant with the ISAAC v1.0 Ontology!")
 
-                # Database save option
-                if db_connected:
-                    st.divider()
-                    st.subheader("Save to Database")
-                    st.write("Convert validated Excel rows to ISAAC records and save to database.")
+                def build_record_from_row(row):
+                    """Build an ISAAC record dict from an Excel DataFrame row."""
+                    import ulid
+                    record_id = str(ulid.new())
 
-                    if st.button("Save Records to Database", type="primary"):
-                        saved_count = 0
-                        errors = []
+                    record = {
+                        "isaac_record_version": "1.0",
+                        "record_id": record_id,
+                        "record_type": row.get("Record Type", "evidence"),
+                        "record_domain": row.get("Record Domain", "characterization"),
+                        "timestamps": {
+                            "created_utc": datetime.utcnow().isoformat() + "Z"
+                        },
+                        "acquisition_source": {
+                            "source_type": row.get("Source Type", "laboratory")
+                        }
+                    }
 
-                        for idx, row in df.iterrows():
-                            try:
-                                # Generate ULID for record_id
-                                import ulid
-                                record_id = str(ulid.new())
+                    # Add context if available
+                    context = {}
+                    if pd.notna(row.get("Environment")):
+                        context["environment"] = row["Environment"]
+                    if pd.notna(row.get("Temperature (K)")):
+                        context["temperature_K"] = float(row["Temperature (K)"])
+                    if context:
+                        record["context"] = context
 
-                                # Build minimal ISAAC record from Excel row
-                                record = {
-                                    "isaac_record_version": "1.0",
-                                    "record_id": record_id,
-                                    "record_type": row.get("Record Type", "evidence"),
-                                    "record_domain": row.get("Record Domain", "characterization"),
-                                    "timestamps": {
-                                        "created_utc": datetime.utcnow().isoformat() + "Z"
-                                    },
-                                    "acquisition_source": {
-                                        "source_type": row.get("Source Type", "laboratory")
-                                    }
+                    # Add sample if available
+                    sample = {}
+                    if pd.notna(row.get("Material Name")):
+                        sample["material"] = {"name": row["Material Name"]}
+                        if pd.notna(row.get("Formula")):
+                            sample["material"]["formula"] = row["Formula"]
+                    if pd.notna(row.get("Sample Form")):
+                        sample["sample_form"] = row["Sample Form"]
+                    if sample:
+                        record["sample"] = sample
+
+                    return record
+
+                def post_records_to_api(endpoint, action_label):
+                    """POST each row's record to the given API endpoint and display results."""
+                    saved_count = 0
+                    validation_fail_count = 0
+                    other_error_count = 0
+                    row_results = []
+
+                    progress = st.progress(0, text=f"{action_label}...")
+
+                    for idx, row in df.iterrows():
+                        progress.progress(
+                            (idx + 1) / len(df),
+                            text=f"{action_label}... row {idx + 1}/{len(df)}"
+                        )
+                        try:
+                            record = build_record_from_row(row)
+                            url = f"{api_url}{endpoint}"
+                            resp = requests.post(url, json=record, timeout=30)
+                            resp_data = resp.json()
+
+                            if resp.status_code == 200 or resp.status_code == 201:
+                                if resp_data.get("valid") is True or resp_data.get("success") is True:
+                                    record_id = resp_data.get("record_id", record.get("record_id", ""))
+                                    saved_count += 1
+                                    row_results.append({
+                                        "row": idx + 1,
+                                        "status": "success",
+                                        "record_id": record_id,
+                                        "detail": None
+                                    })
+                                else:
+                                    # API returned 200 but valid/success is false
+                                    errors = resp_data.get("errors", [])
+                                    reason = resp_data.get("reason", "Validation failed")
+                                    validation_fail_count += 1
+                                    row_results.append({
+                                        "row": idx + 1,
+                                        "status": "validation_failed",
+                                        "record_id": None,
+                                        "detail": {"reason": reason, "errors": errors}
+                                    })
+                            elif resp.status_code == 400:
+                                errors = resp_data.get("errors", [])
+                                reason = resp_data.get("reason", "Validation failed")
+                                validation_fail_count += 1
+                                row_results.append({
+                                    "row": idx + 1,
+                                    "status": "validation_failed",
+                                    "record_id": None,
+                                    "detail": {"reason": reason, "errors": errors}
+                                })
+                            else:
+                                reason = resp_data.get("reason", resp.text)
+                                other_error_count += 1
+                                row_results.append({
+                                    "row": idx + 1,
+                                    "status": "error",
+                                    "record_id": None,
+                                    "detail": {"reason": f"HTTP {resp.status_code}: {reason}", "errors": []}
+                                })
+
+                        except requests.ConnectionError:
+                            other_error_count += 1
+                            row_results.append({
+                                "row": idx + 1,
+                                "status": "error",
+                                "record_id": None,
+                                "detail": {
+                                    "reason": f"Connection refused - is the API running at {api_url}?",
+                                    "errors": []
                                 }
+                            })
+                        except requests.Timeout:
+                            other_error_count += 1
+                            row_results.append({
+                                "row": idx + 1,
+                                "status": "error",
+                                "record_id": None,
+                                "detail": {"reason": "Request timed out", "errors": []}
+                            })
+                        except Exception as e:
+                            other_error_count += 1
+                            row_results.append({
+                                "row": idx + 1,
+                                "status": "error",
+                                "record_id": None,
+                                "detail": {"reason": str(e), "errors": []}
+                            })
 
-                                # Add context if available
-                                context = {}
-                                if pd.notna(row.get("Environment")):
-                                    context["environment"] = row["Environment"]
-                                if pd.notna(row.get("Temperature (K)")):
-                                    context["temperature_K"] = float(row["Temperature (K)"])
-                                if context:
-                                    record["context"] = context
+                    progress.empty()
 
-                                # Add sample if available
-                                sample = {}
-                                if pd.notna(row.get("Material Name")):
-                                    sample["material"] = {"name": row["Material Name"]}
-                                    if pd.notna(row.get("Formula")):
-                                        sample["material"]["formula"] = row["Formula"]
-                                if pd.notna(row.get("Sample Form")):
-                                    sample["sample_form"] = row["Sample Form"]
-                                if sample:
-                                    record["sample"] = sample
+                    # --- Summary ---
+                    st.divider()
+                    st.subheader("Results Summary")
+                    total = len(row_results)
+                    col1, col2, col3 = st.columns(3)
+                    col1.metric("Succeeded", saved_count)
+                    col2.metric("Validation Failed", validation_fail_count)
+                    col3.metric("Other Errors", other_error_count)
 
-                                # Save to database
-                                database.save_record(record)
-                                saved_count += 1
+                    if saved_count == total:
+                        st.success(f"All {total} records processed successfully!")
+                    elif saved_count > 0:
+                        st.warning(
+                            f"{saved_count} of {total} records succeeded. "
+                            f"{validation_fail_count} failed validation, "
+                            f"{other_error_count} had other errors."
+                        )
+                    else:
+                        st.error(f"No records succeeded out of {total}.")
 
-                            except Exception as e:
-                                errors.append(f"Row {idx + 1}: {str(e)}")
+                    # --- Per-row details ---
+                    for result in row_results:
+                        row_num = result["row"]
+                        status = result["status"]
 
-                        if saved_count > 0:
-                            st.success(f"Saved {saved_count} records to database!")
-                        if errors:
-                            st.error(f"Failed to save {len(errors)} records:")
-                            for err in errors[:5]:
-                                st.write(f"  - {err}")
-                            if len(errors) > 5:
-                                st.write(f"  ... and {len(errors) - 5} more")
-                else:
-                    st.info("Connect to a database to enable saving records.")
+                        if status == "success":
+                            st.write(f"Row {row_num}: Saved (ID: `{result['record_id']}`)")
+                        elif status == "validation_failed":
+                            with st.expander(f"Row {row_num}: Validation Failed"):
+                                detail = result["detail"]
+                                st.write(f"**Reason:** {detail['reason']}")
+                                if detail["errors"]:
+                                    st.write("**Errors:**")
+                                    for err in detail["errors"]:
+                                        st.write(f"- {err}")
+                        elif status == "error":
+                            with st.expander(f"Row {row_num}: Error"):
+                                detail = result["detail"]
+                                st.write(f"**Reason:** {detail['reason']}")
+
+                # --- Action Buttons ---
+                st.divider()
+                st.subheader("Save to Database")
+                st.write(
+                    "Records will be validated against the full JSON Schema via the API "
+                    "and saved to the database if valid."
+                )
+
+                btn_col1, btn_col2 = st.columns(2)
+
+                with btn_col1:
+                    if st.button("Save Records to Database", type="primary"):
+                        post_records_to_api("/portal/api/records", "Saving records")
+
+                with btn_col2:
+                    if st.button("Validate Only"):
+                        post_records_to_api("/portal/api/validate", "Validating records")
 
         except Exception as e:
             st.error(f"Error reading file: {e}")
